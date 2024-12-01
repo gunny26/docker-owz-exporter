@@ -1,0 +1,18 @@
+version: '2.4'
+
+services:
+
+    exporter:
+        image: registry.messner.click/gunny26/docker-owz-exporter:latest
+        container_name: owz-exporter
+        restart: unless-stopped
+        mem_limit: 32m
+        cpu_count: 1
+        ports:
+            - 9201:9100/tcp
+        environment:
+            TZ: Europe/Vienna
+            APP_BASE_URL: ${APP_BASE_URL}
+            APP_USERNAME: ${APP_USERNAME}
+            APP_PASSWORD: ${APP_PASSWORD}
+            APP_LOG_LEVEL: DEBUG
