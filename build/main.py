@@ -91,7 +91,7 @@ def main():
         owz_login(session, APP_BASE_URL, APP_USERNAME, APP_PASSWORD)
         for item_id, metric in DATAPOINTS.items():
             value = owz_get_dp(session, APP_BASE_URL, item_id).get("value")
-            logging.info(item_id, value)
+            logging.info(f"{item_id} = {value}")
             metric.set(float(value))
         duration = time.time() - starttime
         sleep_time = max(APP_INTERVAL - duration, 0)  # no negatives
