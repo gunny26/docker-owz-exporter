@@ -9,7 +9,7 @@ RUN apt update && apt install --no-install-recommends -y \
     python3-pip \
     python3-paho-mqtt \
     python3-requests \
-    python3-pometheus-client
+    python3-prometheus-client
 
 WORKDIR /usr/src/app
 # install python modules
