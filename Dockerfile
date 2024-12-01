@@ -9,12 +9,10 @@ RUN apt update && apt install --no-install-recommends -y \
     python3-pip \
     python3-paho-mqtt \
     python3-requests \
-    curl
+    python3-pometheus-client
 
 WORKDIR /usr/src/app
 # install python modules
-COPY ./build/requirements.txt ./
-RUN pip3 install --disable-pip-version-check --no-cache-dir -r requirements.txt
 RUN pip3 freeze
 # this changes very often so put it at the end of the main section
 COPY build/main.py /usr/src/app/main.py
