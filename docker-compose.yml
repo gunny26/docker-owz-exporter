@@ -3,7 +3,7 @@ version: '2.4'
 services:
 
     exporter:
-        image: registry.messner.click/gunny26/docker-owz-exporter:latest
+        image: ghcr.io/gunny26/docker-owz-exporter:latest
         container_name: owz-exporter
         restart: unless-stopped
         mem_limit: 32m

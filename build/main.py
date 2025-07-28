@@ -3,10 +3,11 @@
 """
 program to read data from OWZ Webserver end publish the date for prometheus
 """
-import json
+
 import logging
 import os
 import time
+
 # non std modules
 import requests
 from urllib.parse import urlencode, quote_plus
@@ -43,23 +44,26 @@ DATAPOINTS = {
     # "Status Heizkreis 1": 2411,
     # "Status Heizkreis 2": 2414,
     2420: Gauge("owz_aussentemperatur", "Aussentemperatur"),
-    2422: Gauge("owz_vorlauftemperatur_ist_hk1", "Vorlauftemperatur Istwert Heizkreis 1"),
-    2425: Gauge("owz_vorlauftemperatur_ist_hk2", "Vorlauftemperatur Istwert Heizkreis 2"),
+    2422: Gauge(
+        "owz_vorlauftemperatur_ist_hk1", "Vorlauftemperatur Istwert Heizkreis 1"
+    ),
+    2425: Gauge(
+        "owz_vorlauftemperatur_ist_hk2", "Vorlauftemperatur Istwert Heizkreis 2"
+    ),
     # "Lüftungsstufe 1": 2430,
     # "Lüftungsstufe 2": 2431,
     # "Lüftungsstufe 3": 2432,
     2433: Gauge("owz_trinkwasser_ist_b3", "Trinkwassertemperatur-Istwert Oben (B3)"),
-    2436: Gauge("owz_pufferspeicher_ist_b4", "Pufferspeichertemperatur-Istwert Oben (B4)"),
+    2436: Gauge(
+        "owz_pufferspeicher_ist_b4", "Pufferspeichertemperatur-Istwert Oben (B4)"
+    ),
     2438: Gauge("owz_ruecklauftemperatur_wp", "Rücklauftemperatur Wärmepumpe"),
     2440: Gauge("owz_vorlauftemperatur_wp", "Vorlauftemperatur Wärmepumpe"),
 }
 
 
 def owz_login(session, base_url: str, username: str, password: str) -> None:
-    payload = {
-        'user': username,
-        'pwd': password
-    }
+    payload = {"user": username, "pwd": password}
     payload_enc = urlencode(payload, quote_via=quote_plus)
     res = session.get(f"{base_url}/main.app?{payload_enc}", verify=False)
     if res.status_code != 200:
@@ -70,8 +74,8 @@ def owz_login(session, base_url: str, username: str, password: str) -> None:
 
 def owz_get_dp(session, base_url: str, plant_item_id: int) -> dict:
     payload = {
-        'service': 'getDp',
-        'plantItemId': plant_item_id,
+        "service": "getDp",
+        "plantItemId": plant_item_id,
     }
     payload_enc = urlencode(payload, quote_via=quote_plus)
     res = session.get(f"{base_url}/ajax.app?{payload_enc}", verify=False)
@@ -99,4 +103,4 @@ def main():
 
 
 if __name__ == "__main__":
-   main()
+    main()
